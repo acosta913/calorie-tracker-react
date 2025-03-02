@@ -1,21 +1,10 @@
 import { Activity } from "../types";
 
 export type ActivityActions =
-  | {
-      type: "save-activity";
-      payload: { newActivity: Activity };
-    }
-  | {
-      type: "set-activeId";
-      payload: { id: Activity["id"] };
-    }
-  | {
-      type: "delete-activity";
-      payload: { id: Activity["id"] };
-    }
-  | {
-      type: "restart-app";
-    };
+  | { type: "save-activity"; payload: { newActivity: Activity } }
+  | { type: "set-activeId"; payload: { id: Activity["id"] } }
+  | { type: "delete-activity"; payload: { id: Activity["id"] } }
+  | { type: "restart-app" };
 
 export type ActivityState = {
   activities: Activity[];
@@ -32,22 +21,22 @@ export const initialState: ActivityState = {
   activeId: "",
 };
 
-export const ActivityReducer = (
+export const activityReducer = (
   state: ActivityState = initialState,
   action: ActivityActions
 ) => {
   if (action.type === "save-activity") {
-    let updatedAtivities: Activity[] = [];
+    let updatedActivities: Activity[] = [];
     if (state.activeId) {
-      updatedAtivities = state.activities.map((activity) =>
+      updatedActivities = state.activities.map((activity) =>
         activity.id === state.activeId ? action.payload.newActivity : activity
       );
     } else {
-      updatedAtivities = [...state.activities, action.payload.newActivity];
+      updatedActivities = [...state.activities, action.payload.newActivity];
     }
     return {
       ...state,
-      activities: updatedAtivities,
+      activities: updatedActivities,
       activeId: "",
     };
   }
@@ -74,5 +63,6 @@ export const ActivityReducer = (
       activeId: "",
     };
   }
+
   return state;
 };

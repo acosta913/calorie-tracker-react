@@ -7,6 +7,7 @@ type CalorieTrackerProps = {
 };
 
 export default function CalorieTracker({ activities }: CalorieTrackerProps) {
+  // Contadores
   const caloriesConsumed = useMemo(
     () =>
       activities.reduce(
@@ -16,7 +17,6 @@ export default function CalorieTracker({ activities }: CalorieTrackerProps) {
       ),
     [activities]
   );
-
   const caloriesBurned = useMemo(
     () =>
       activities.reduce(
@@ -26,7 +26,6 @@ export default function CalorieTracker({ activities }: CalorieTrackerProps) {
       ),
     [activities]
   );
-
   const netCalories = useMemo(
     () => caloriesConsumed - caloriesBurned,
     [activities]
@@ -34,13 +33,14 @@ export default function CalorieTracker({ activities }: CalorieTrackerProps) {
 
   return (
     <>
-      <h2 className=" text-4xl font-black text-white text-center">
+      <h2 className="text-4xl font-black text-white text-center">
         Resumen de Calorias
       </h2>
-      <div className=" flex flex-col items-center md:flex-row md:justify-between gap-5 mt-10">
-        <CalorieDisplay calories={caloriesConsumed} text={"Consumidas"} />
-        <CalorieDisplay calories={caloriesBurned} text={"Ejercicio"} />
-        <CalorieDisplay calories={netCalories} text={"Diferencia"} />
+
+      <div className="flex flex-col items-center md:flex-row md:justify-between gap-5 mt-10">
+        <CalorieDisplay calories={caloriesConsumed} text="Consumidas" />
+        <CalorieDisplay calories={caloriesBurned} text="Ejercicio" />
+        <CalorieDisplay calories={netCalories} text="Diferencia" />
       </div>
     </>
   );
